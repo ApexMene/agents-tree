@@ -19,7 +19,7 @@ conversazioni. Usa solo Python standard, nessuna dipendenza.
 
 > Stato: 0.1, sperimentale. Per ora supporta solo Claude Code.
 
-## Uso
+## 🚀 Uso
 
 ```bash
 git clone https://github.com/ApexMene/agents-tree
@@ -36,7 +36,7 @@ pip install .
 agents-tree --project .
 ```
 
-## Cosa legge, esattamente
+## 🔍 Cosa legge, esattamente
 
 | Dove | Cosa ricava |
 |---|---|
@@ -48,19 +48,19 @@ agents-tree --project .
 Non legge `~/.claude/projects` (i transcript) e non scansiona la home.
 I valori delle variabili d'ambiente dei server MCP non escono mai: vedi solo i nomi.
 
-## Perché esiste
+## 💡 Perché esiste
 
 Con molte skill e server MCP non si capisce più cosa parte in una sessione.
 Questo tool lo mostra senza toccare la config.
 
-## Pro
+## ✅ Pro
 
 - Vedi subito il perimetro: quali skill sono attive, quali override esistono.
 - Trovi voci vecchie o duplicate nella config.
 - Zero dipendenze, un file Python per l'adapter.
 - Il JSON permette di metterlo in uno script o in un controllo periodico.
 
-## Contro
+## ⚠️ Contro
 
 - **Solo Claude Code.** Gli altri agent (Codex, Antigravity, Kiro, OpenCode, Gemini CLI) non sono ancora supportati.
 - **Formati non ufficiali.** Il tool legge file interni di Claude Code. Se cambiano, un campo può sparire senza errore: il test `test_missing_files_do_not_crash` copre il caso "file assente", non quello "campo cambiato".
@@ -68,7 +68,7 @@ Questo tool lo mostra senza toccare la config.
 - **Nessuna scrittura.** Se vuoi disattivare una skill devi farlo a mano o con lo strumento ufficiale.
 - **Maintainer di un solo progetto.** Nessuna garanzia di tempi di risposta.
 
-## Contribuire
+## 🤝 Contribuire
 
 Serve più di una persona per gli altri agent. Per aggiungerne uno:
 
@@ -78,6 +78,6 @@ Serve più di una persona per gli altri agent. Per aggiungerne uno:
 
 Test: `python3 -m unittest discover -s tests`
 
-## Licenza
+## 📄 Licenza
 
 MIT, vedi [LICENSE](LICENSE).
