@@ -1,6 +1,6 @@
-"""Adattatore per Claude Code. Legge solo la config; non scrive mai.
+"""Claude Code adapter. Reads configuration only; never writes.
 
-Fonti lette (nient'altro viene scansionato):
+Sources read (nothing else is scanned):
   ~/.claude/settings.json         skillOverrides, enabledPlugins, hooks
   ~/.claude.json                  user-scope mcpServers, per-project mcpServers
   ~/.claude/skills/*/SKILL.md     user skills
@@ -8,8 +8,8 @@ Fonti lette (nient'altro viene scansionato):
   <project>/.mcp.json             project MCP servers (only for --project paths)
   <project>/CLAUDE.md, AGENTS.md  memory files (only for --project paths)
 
-I transcript (~/.claude/projects/*.jsonl) non vengono letti di proposito.
-I valori delle variabili env dei server MCP non vengono letti, solo i nomi delle chiavi.
+Transcripts (~/.claude/projects/*.jsonl) are deliberately not read.
+MCP env values are never read, only their key names.
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ def _read_json(path: Path) -> Any:
 
 
 def _skill_description(skill_md: Path) -> str:
-    """Restituisce il campo `description` dal front matter di SKILL.md, su una riga."""
+    """Return the `description` field from a SKILL.md front matter, one line."""
     try:
         text = skill_md.read_text(encoding="utf-8")
     except OSError:
@@ -152,10 +152,10 @@ def _memory_files(project: Path) -> list[dict]:
 
 
 def scan(home: Path, projects: list[Path] | None = None) -> dict:
-    """Restituisce la config di Claude Code per `home`.
+    """Return the configuration of Claude Code for `home`.
 
-    `projects` elenca le cartelle di progetto da controllare per la config di progetto.
-    Non viene toccato nulla fuori da `home` e da quelle cartelle.
+    `projects` lists project folders to inspect for project-scope config.
+    Nothing outside `home` and those folders is touched.
     """
     home = Path(home).expanduser()
     settings = _read_json(home / ".claude" / "settings.json")

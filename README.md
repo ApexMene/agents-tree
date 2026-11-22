@@ -3,81 +3,81 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/stato-sperimentale-orange" alt="stato sperimentale">
-  <img src="https://img.shields.io/badge/licenza-MIT-blue" alt="licenza MIT">
-  <img src="https://img.shields.io/badge/agent-Claude%20Code-38bdf8" alt="agent Claude Code">
-  <img src="https://img.shields.io/badge/dipendenze-zero-success" alt="zero dipendenze">
+  <img src="https://img.shields.io/badge/status-experimental-orange" alt="experimental">
+  <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license">
+  <img src="https://img.shields.io/badge/agent-Claude%20Code-38bdf8" alt="Claude Code">
+  <img src="https://img.shields.io/badge/dependencies-none-success" alt="no dependencies">
 </p>
 
 # agents-tree
 
-Un albero di cosa il tuo agent AI carica davvero: skill attive e disattivate,
-plugin, server MCP, hook, file di memoria (`CLAUDE.md`, `AGENTS.md`).
+A tree view of what your AI agent actually loads: enabled and disabled skills,
+plugins, MCP servers, hooks, and memory files (`CLAUDE.md`, `AGENTS.md`).
 
-**Sola lettura.** Non scrive, non sposta, non cancella nulla. Non legge le
-conversazioni. Usa solo Python standard, nessuna dipendenza.
+**Read-only.** It never writes, moves or deletes anything, and it never reads
+your conversations. Python standard library only, no dependencies.
 
-> Stato: 0.1, sperimentale. Per ora supporta solo Claude Code.
+> Status: 0.1, experimental. Claude Code is the only supported agent for now.
 
-## 🚀 Uso
+## 🚀 Usage
 
 ```bash
 git clone https://github.com/ApexMene/agents-tree
 cd agents-tree
-python3 -m agents_tree.cli                       # albero in terminale
-python3 -m agents_tree.cli --json                # JSON per script
-python3 -m agents_tree.cli --project ~/work/app  # include config di progetto
+python3 -m agents_tree.cli                       # tree in the terminal
+python3 -m agents_tree.cli --json                # JSON for scripts
+python3 -m agents_tree.cli --project ~/work/app  # include project-scope config
 ```
 
-Con installazione:
+Or install it:
 
 ```bash
 pip install .
 agents-tree --project .
 ```
 
-## 🔍 Cosa legge, esattamente
+## 🔍 What it reads, exactly
 
-| Dove | Cosa ricava |
+| Source | What it extracts |
 |---|---|
 | `~/.claude/settings.json` | `skillOverrides` (skill on/off), `enabledPlugins`, `hooks`, `mcpServers` |
-| `~/.claude.json` | server MCP a livello utente e per progetto |
-| `~/.claude/skills/*/SKILL.md`, `~/.agents/skills/*/SKILL.md` | nome, descrizione, symlink |
-| `<progetto>/.mcp.json`, `<progetto>/CLAUDE.md`, `<progetto>/AGENTS.md` | solo per le cartelle passate con `--project` |
+| `~/.claude.json` | user-scope and per-project MCP servers |
+| `~/.claude/skills/*/SKILL.md`, `~/.agents/skills/*/SKILL.md` | name, description, symlink target |
+| `<project>/.mcp.json`, `<project>/CLAUDE.md`, `<project>/AGENTS.md` | only for folders passed with `--project` |
 
-Non legge `~/.claude/projects` (i transcript) e non scansiona la home.
-I valori delle variabili d'ambiente dei server MCP non escono mai: vedi solo i nomi.
+It does not read `~/.claude/projects` (transcripts) and does not scan your home
+directory. MCP environment values are never printed: you only see the variable names.
 
-## 💡 Perché esiste
+## 💡 Why it exists
 
-Con molte skill e server MCP non si capisce più cosa parte in una sessione.
-Questo tool lo mostra senza toccare la config.
+With many skills and MCP servers, it becomes unclear what actually runs in a
+session. This tool shows it without touching your configuration.
 
-## ✅ Pro
+## ✅ Pros
 
-- Vedi subito il perimetro: quali skill sono attive, quali override esistono.
-- Trovi voci vecchie o duplicate nella config.
-- Zero dipendenze, un file Python per l'adapter.
-- Il JSON permette di metterlo in uno script o in un controllo periodico.
+- See at a glance which skills are active and which overrides exist.
+- Find stale or duplicated entries in your config.
+- Zero dependencies, one small Python adapter.
+- JSON output makes it easy to use in scripts or periodic checks.
 
-## ⚠️ Contro
+## ⚠️ Cons
 
-- **Solo Claude Code.** Gli altri agent (Codex, Antigravity, Kiro, OpenCode, Gemini CLI) non sono ancora supportati.
-- **Formati non ufficiali.** Il tool legge file interni di Claude Code. Se cambiano, un campo può sparire senza errore: il test `test_missing_files_do_not_crash` copre il caso "file assente", non quello "campo cambiato".
-- **Nessun costo in token.** Il costo di contesto per skill non è ancora calcolato. È stato rimosso dalla 0.1 perché la stima andava fatta bene.
-- **Nessuna scrittura.** Se vuoi disattivare una skill devi farlo a mano o con lo strumento ufficiale.
-- **Maintainer di un solo progetto.** Nessuna garanzia di tempi di risposta.
+- **Claude Code only.** Codex, Antigravity, Kiro, OpenCode and Gemini CLI are not supported yet.
+- **Unofficial formats.** It reads Claude Code's internal files. If they change, a field can disappear without an error. The test `test_missing_files_do_not_crash` covers "file missing", not "field changed".
+- **No token cost yet.** Per-skill context cost is not calculated. It was removed from 0.1 because the estimate needs to be done properly.
+- **No writes.** To disable a skill you still have to do it by hand or with the official tooling.
+- **One maintainer.** No guaranteed response times.
 
-## 🤝 Contribuire
+## 🤝 Contributing
 
-Serve più di una persona per gli altri agent. Per aggiungerne uno:
+More agents need more people. To add one:
 
-1. crea `agents_tree/<agent>.py` con una funzione `scan(home, projects) -> dict` che restituisce la stessa forma di `agents_tree/claude.py`;
-2. aggiungi i test in `tests/`;
-3. apri una PR con le fonti dei file letti.
+1. Create `agents_tree/<agent>.py` with a `scan(home, projects) -> dict` function that returns the same shape as `agents_tree/claude.py`.
+2. Add tests under `tests/`.
+3. Open a PR that lists the source files it reads.
 
-Test: `python3 -m unittest discover -s tests`
+Tests: `python3 -m unittest discover -s tests`
 
-## 📄 Licenza
+## 📄 License
 
-MIT, vedi [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).

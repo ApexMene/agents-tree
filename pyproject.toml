@@ -1,7 +1,7 @@
 [project]
 name = "agents-tree"
 version = "0.1.0"
-description = "Albero in sola lettura di cosa caricano i tuoi agent AI: skill, override, server MCP, hook, file di memoria."
+description = "Read-only tree of what your AI coding agents load: skills, overrides, MCP servers, hooks, memory files."
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.9"
