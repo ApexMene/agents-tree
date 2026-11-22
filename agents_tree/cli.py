@@ -1,4 +1,4 @@
-"""Command line entry point: `agents-tree [--json] [--project DIR]...`."""
+"""Punto d'ingresso da terminale: `agents-tree [--json] [--project DIR]...`."""
 
 from __future__ import annotations
 
@@ -53,15 +53,15 @@ def _render(data: dict) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="agents-tree",
-        description="Read-only view of what your AI coding agents load. Writes nothing.",
+        description="Vista in sola lettura di cosa caricano i tuoi agent AI. Non scrive nulla.",
     )
-    parser.add_argument("--json", action="store_true", help="print JSON instead of a tree")
+    parser.add_argument("--json", action="store_true", help="stampa JSON invece dell'albero")
     parser.add_argument(
         "--project",
         action="append",
         default=[],
         metavar="DIR",
-        help="also inspect project-scope config in DIR (repeatable)",
+        help="controlla anche la config di progetto in DIR (ripetibile)",
     )
     parser.add_argument("--home", default=str(Path.home()), help=argparse.SUPPRESS)
     parser.add_argument("--version", action="version", version=f"agents-tree {__version__}")
