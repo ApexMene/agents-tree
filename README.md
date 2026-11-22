@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/dependencies-none-success" alt="no dependencies">
 </p>
 
-# agents-tree
+# Agents Tree
 
 A tree view of what your AI agent actually loads: enabled and disabled skills,
 plugins, MCP servers, hooks, and memory files (`CLAUDE.md`, `AGENTS.md`).
